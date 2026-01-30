@@ -1,0 +1,51 @@
+<header class="sticky top-0 z-20 bg-[#FAFAFA]/90 backdrop-blur-md px-4 py-2 lg:px-8 border-b border-transparent">
+    <div class="flex items-center justify-between h-16">
+
+        <!-- Mobile Menu Button & Title -->
+        <div class="flex items-center gap-4">
+            <button (click)="onMenuClick()"
+                class="lg:hidden flex items-center justify-center p-2 -ml-2 rounded-full hover:bg-black/5 transition-colors">
+                <span class="material-symbols-outlined text-[28px]">menu</span>
+            </button>
+            <h1 class="text-xl font-bold tracking-tight text-[#111816]">{{ pageTitle() }}</h1>
+        </div>
+
+        <!-- Desktop Actions -->
+        <div class="flex items-center gap-4">
+            <!-- Global Search (decorativo) -->
+            <div
+                class="hidden lg:flex items-center gap-2 text-sm text-gray-500 bg-white px-3 py-1.5 rounded-md border border-gray-200 shadow-sm cursor-text hover:border-primary/50 transition-colors">
+                <span class="material-symbols-outlined text-[18px]">search</span>
+                <span>Buscar...</span>
+                <kbd
+                    class="hidden xl:inline-block px-1.5 py-0.5 text-xs font-sans bg-gray-100 rounded ml-4 border border-gray-200">Ctrl
+                    K</kbd>
+            </div>
+
+
+            <!-- Notifications (decorativo) -->
+            <button class="relative p-2 -mr-2 rounded-full hover:bg-black/5 transition-colors">
+                <span class="material-symbols-outlined text-[28px]">notifications</span>
+                <span class="absolute top-2 right-2.5 h-2 w-2 rounded-full bg-red-500 border border-white"></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- Search Bar Mobile (decorativo) -->
+<div class="px-4 lg:hidden pb-4 sticky top-[72px] z-10 bg-[#FAFAFA] transition-all">
+    <label class="flex flex-col w-full">
+        <div
+            class="flex w-full items-center rounded-xl bg-white shadow-sm border border-gray-100 h-12 overflow-hidden focus-within:ring-2 focus-within:ring-primary/50 transition-shadow">
+            <div class="flex items-center justify-center pl-4 text-gray-400">
+                <span class="material-symbols-outlined text-[24px]">search</span>
+            </div>
+            <input
+                class="w-full bg-transparent border-none text-base font-normal text-[#111816] placeholder:text-gray-400 px-3 focus:outline-none focus:ring-0 h-full"
+                placeholder="Buscar productos, SKU..." />
+            <button class="pr-4 text-gray-400 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-[24px]">tune</span>
+            </button>
+        </div>
+    </label>
+</div>

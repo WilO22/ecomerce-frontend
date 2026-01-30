@@ -1,0 +1,52 @@
+<div
+    class="bg-[#FAFAFA] font-['Inter'] text-[#111816] antialiased selection:bg-primary/20 overflow-x-hidden min-h-screen">
+    <!-- Sidebar Desktop/Tablet -->
+    <app-sidebar />
+
+    <!-- Mobile Drawer Overlay -->
+    @if (isDrawerOpen()) {
+    <div class="fixed inset-0 bg-black/50 z-40 lg:hidden" (click)="toggleDrawer()"></div>
+
+    <!-- Mobile Drawer -->
+    <aside
+        class="fixed inset-y-0 left-0 w-[260px] bg-white z-50 shadow-2xl flex flex-col h-full lg:hidden animate-slide-in-up">
+        <div class="p-6 flex items-center justify-between border-b border-gray-100">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-primary text-3xl">rocket_launch</span>
+                <span class="text-xl font-bold tracking-tight">TechNova</span>
+            </div>
+            <button (click)="toggleDrawer()" class="p-1 rounded-full hover:bg-gray-100">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+            <a routerLink="/products" (click)="toggleDrawer()"
+                class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg font-medium transition-colors">
+                <span class="material-symbols-outlined">inventory_2</span> Productos
+            </a>
+            <a routerLink="/categories" (click)="toggleDrawer()"
+                class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg font-medium transition-colors">
+                <span class="material-symbols-outlined">category</span> Categorías
+            </a>
+        </nav>
+    </aside>
+    }
+
+    <!-- Main Content -->
+    <main
+        class="relative flex flex-col min-h-screen transition-all duration-300 ml-0 md:ml-[72px] lg:ml-[260px] pb-[90px] md:pb-10">
+        <!-- Header -->
+        <app-header [pageTitle]="pageTitle" (menuClick)="toggleDrawer()" />
+
+        <!-- Page Content -->
+        <div class="flex flex-col px-4 lg:px-8 gap-4 animate-fade-in">
+            <router-outlet />
+        </div>
+    </main>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <app-bottom-nav />
+
+    <!-- Toast Global -->
+    <app-toast />
+</div>

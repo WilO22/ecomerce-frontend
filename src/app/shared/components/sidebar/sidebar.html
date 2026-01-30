@@ -1,0 +1,67 @@
+<!-- Sidebar Desktop/Tablet -->
+<aside
+    class="fixed left-0 top-0 h-screen bg-white z-30 hidden md:flex flex-col border-r border-gray-200 transition-all duration-300 group w-[72px] hover:w-[260px] lg:w-[260px] lg:hover:w-[260px] overflow-hidden whitespace-nowrap">
+
+    <!-- Header -->
+    <div class="h-16 flex items-center px-5 border-b border-gray-100 shrink-0">
+        <span class="material-symbols-outlined text-primary text-3xl shrink-0">rocket_launch</span>
+        <span
+            class="ml-4 text-xl font-bold tracking-tight opacity-0 group-hover:opacity-100 lg:opacity-100 transition-opacity duration-200">TechNova</span>
+    </div>
+
+    <!-- Nav -->
+    <nav class="flex-1 px-3 py-6 space-y-2 overflow-y-auto overflow-x-hidden">
+        <!-- Dashboard (decorativo) -->
+        <button
+            class="w-full flex items-center gap-4 px-3 py-3 text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg font-medium transition-colors text-left">
+            <span class="material-symbols-outlined text-[24px] shrink-0">dashboard</span>
+            <span class="opacity-0 group-hover:opacity-100 lg:opacity-100 transition-opacity duration-200">Inicio</span>
+        </button>
+
+        <!-- Productos -->
+        <a routerLink="/products" routerLinkActive="bg-primary/10 text-primary"
+            class="w-full flex items-center gap-4 px-3 py-3 text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg font-medium transition-colors text-left">
+            <span class="material-symbols-outlined text-[24px] shrink-0">inventory_2</span>
+            <span
+                class="opacity-0 group-hover:opacity-100 lg:opacity-100 transition-opacity duration-200">Productos</span>
+        </a>
+
+        <!-- Categorías -->
+        <a routerLink="/categories" routerLinkActive="bg-primary/10 text-primary"
+            class="w-full flex items-center gap-4 px-3 py-3 text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg font-medium transition-colors text-left">
+            <span class="material-symbols-outlined text-[24px] shrink-0">category</span>
+            <span
+                class="opacity-0 group-hover:opacity-100 lg:opacity-100 transition-opacity duration-200">Categorías</span>
+        </a>
+
+        <!-- Clientes (decorativo) -->
+        <button
+            class="w-full flex items-center gap-4 px-3 py-3 text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg font-medium transition-colors text-left">
+            <span class="material-symbols-outlined text-[24px] shrink-0">group</span>
+            <span
+                class="opacity-0 group-hover:opacity-100 lg:opacity-100 transition-opacity duration-200">Clientes</span>
+        </button>
+
+        <!-- Pedidos (decorativo) -->
+        <button
+            class="w-full flex items-center gap-4 px-3 py-3 text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg font-medium transition-colors text-left">
+            <span class="material-symbols-outlined text-[24px] shrink-0">shopping_bag</span>
+            <span
+                class="opacity-0 group-hover:opacity-100 lg:opacity-100 transition-opacity duration-200">Pedidos</span>
+        </button>
+    </nav>
+
+    <!-- Footer -->
+    <div class="p-3 border-t border-gray-100 shrink-0">
+        <div class="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
+            <div
+                class="w-10 h-10 shrink-0 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">
+                A</div>
+            <div
+                class="opacity-0 group-hover:opacity-100 lg:opacity-100 transition-opacity duration-200 overflow-hidden">
+                <p class="text-sm font-bold truncate">Admin</p>
+                <p class="text-xs text-gray-500 truncate">Cerrar sesión</p>
+            </div>
+        </div>
+    </div>
+</aside>

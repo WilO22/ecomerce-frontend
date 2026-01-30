@@ -1,0 +1,132 @@
+<!-- FAB Button Mobile -->
+<button (click)="openCreateModal()"
+    class="fixed bottom-[96px] right-4 lg:hidden z-30 flex h-14 w-14 items-center justify-center rounded-full bg-primary shadow-lg shadow-primary/30 text-white hover:bg-primary/90 active:scale-95 transition-all">
+    <span class="material-symbols-outlined text-[32px]">add</span>
+</button>
+
+<!-- Loading State -->
+@if (isLoading()) {
+<div class="flex items-center justify-center py-12">
+    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+</div>
+} @else {
+<!-- Cards Grid (Mobile/Tablet) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:hidden gap-3">
+    @for (product of products(); track product.id) {
+    <div
+        class="group relative flex bg-white rounded-lg shadow-soft border border-gray-100/50 p-3 gap-3 transition-transform active:scale-[0.99]">
+        <div
+            class="shrink-0 h-[88px] w-[88px] rounded-lg bg-gray-100 flex items-center justify-center border border-gray-100">
+            <span class="material-symbols-outlined text-4xl text-gray-300">inventory_2</span>
+        </div>
+        <div class="flex flex-1 flex-col justify-between py-0.5">
+            <div>
+                <div class="flex justify-between items-start">
+                    <h3 class="text-[#111816] text-base font-semibold leading-tight line-clamp-1 pr-4">{{ product.name
+                        }}</h3>
+                    <div class="relative">
+                        <button class="text-gray-400 hover:text-[#111816] -mt-1 -mr-1 p-1"
+                            (click)="openEditModal(product)">
+                            <span class="material-symbols-outlined text-[20px]">edit</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-1 flex items-center gap-2">
+                    <span
+                        class="inline-flex items-center rounded-md bg-purple-50 px-2 py-0.5 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10">
+                        {{ getCategoryName(product) }}
+                    </span>
+                </div>
+            </div>
+            <div class="flex items-end justify-between">
+                <p class="text-primary text-base font-bold leading-normal">${{ product.price }}</p>
+                @if (product.stock > 0) {
+                <p class="text-gray-500 text-xs font-medium leading-normal">{{ product.stock }} en stock</p>
+                } @else {
+                <p class="text-red-500 text-xs font-medium leading-normal bg-red-50 px-1.5 py-0.5 rounded">Sin Stock</p>
+                }
+            </div>
+        </div>
+        <button (click)="openDeleteDialog(product)"
+            class="absolute top-2 right-2 text-gray-300 hover:text-red-500 transition-colors">
+            <span class="material-symbols-outlined text-[18px]">delete</span>
+        </button>
+    </div>
+    } @empty {
+    <div class="col-span-2 text-center py-12 text-gray-500">
+        <span class="material-symbols-outlined text-5xl mb-2">inventory_2</span>
+        <p>No hay productos registrados</p>
+        <button (click)="openCreateModal()" class="mt-4 text-primary font-medium hover:underline">Crear primer
+            producto</button>
+    </div>
+    }
+</div>
+
+<!-- Desktop Action Bar -->
+<div class="hidden lg:flex justify-end mb-4">
+    <button (click)="openCreateModal()"
+        class="flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg hover:bg-primary/90 shadow-sm transition-all font-medium">
+        <span class="material-symbols-outlined text-[20px]">add</span>
+        Nuevo Producto
+    </button>
+</div>
+
+<!-- Table View (Desktop) -->
+<div class="hidden lg:block bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+    <table class="w-full text-left border-collapse">
+        <thead>
+            <tr
+                class="border-b border-gray-200 bg-gray-50/50 text-xs uppercase text-gray-500 font-semibold tracking-wider">
+                <th class="p-4">Nombre</th>
+                <th class="p-4">Categoría</th>
+                <th class="p-4">Precio</th>
+                <th class="p-4">Stock</th>
+                <th class="p-4 text-right">Acciones</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100 text-sm">
+            @for (product of products(); track product.id) {
+            <tr class="hover:bg-gray-50 transition-colors group">
+                <td class="p-4 font-medium text-gray-900">{{ product.name }}</td>
+                <td class="p-4">
+                    <span
+                        class="inline-flex items-center rounded-md bg-purple-50 px-2 py-0.5 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10">
+                        {{ getCategoryName(product) }}
+                    </span>
+                </td>
+                <td class="p-4 font-bold text-primary">${{ product.price }}</td>
+                <td class="p-4 text-gray-600">{{ product.stock }}</td>
+                <td class="p-4 text-right">
+                    <button (click)="openEditModal(product)"
+                        class="text-gray-400 hover:text-primary transition-colors p-1">
+                        <span class="material-symbols-outlined text-[20px]">edit</span>
+                    </button>
+                    <button (click)="openDeleteDialog(product)"
+                        class="text-gray-400 hover:text-red-500 transition-colors p-1 ml-2">
+                        <span class="material-symbols-outlined text-[20px]">delete</span>
+                    </button>
+                </td>
+            </tr>
+            } @empty {
+            <tr>
+                <td colspan="5" class="p-8 text-center text-gray-500">
+                    <span class="material-symbols-outlined text-5xl mb-2">inventory_2</span>
+                    <p>No hay productos registrados</p>
+                    <button (click)="openCreateModal()" class="mt-4 text-primary font-medium hover:underline">Crear
+                        primer producto</button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+}
+
+<!-- Product Form Modal -->
+<app-product-form-modal [isOpen]="isModalOpen()" [product]="selectedProduct()" [categories]="categories()"
+    (save)="onSaveProduct($event)" (close)="closeModal()" />
+
+<!-- Delete Confirmation Dialog -->
+<app-confirm-dialog [isOpen]="isDeleteDialogOpen()" [title]="'¿Eliminar producto?'"
+    [message]="'El producto será eliminado permanentemente del sistema.'" (confirm)="confirmDelete()"
+    (cancel)="closeDeleteDialog()" />

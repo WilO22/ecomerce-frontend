@@ -1,0 +1,9 @@
+@if (isVisible()) {
+<div class="fixed top-4 right-4 z-[60] flex items-center w-full max-w-xs p-4 space-x-4 bg-white rounded-lg shadow-lg animate-slide-in-up"
+    role="alert">
+    <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-lg" [class]="iconBgClass()">
+        <span class="material-symbols-outlined text-xl">{{ iconName() }}</span>
+    </div>
+    <div class="pl-2 text-sm font-normal text-gray-700">{{ message() }}</div>
+</div>
+}

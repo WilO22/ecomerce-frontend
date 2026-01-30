@@ -1,0 +1,47 @@
+<nav
+    class="md:hidden fixed bottom-0 left-0 z-40 w-full bg-white/95 backdrop-blur-lg border-t border-gray-200 pb-safe shadow-nav">
+    <div class="flex h-16 w-full items-center justify-around px-2">
+        <!-- Dashboard (decorativo) -->
+        <a
+            class="group flex flex-1 flex-col items-center justify-center gap-1 py-1 text-gray-400 hover:text-primary transition-colors cursor-pointer">
+            <span
+                class="material-symbols-outlined text-[24px] group-hover:scale-110 transition-transform">dashboard</span>
+            <span class="text-[10px] font-medium tracking-wide">Inicio</span>
+        </a>
+
+        <!-- Productos -->
+        <a routerLink="/products" routerLinkActive="text-primary" [routerLinkActiveOptions]="{exact: true}"
+            class="group flex flex-1 flex-col items-center justify-center gap-1 py-1 text-gray-400 cursor-pointer">
+            <span class="material-symbols-outlined text-[24px]">inventory_2</span>
+            <span class="text-[10px] font-medium tracking-wide">Productos</span>
+        </a>
+
+        <!-- Categorías -->
+        <a routerLink="/categories" routerLinkActive="text-primary"
+            class="group flex flex-1 flex-col items-center justify-center gap-1 py-1 text-gray-400 hover:text-primary transition-colors cursor-pointer">
+            <span
+                class="material-symbols-outlined text-[24px] group-hover:scale-110 transition-transform">category</span>
+            <span class="text-[10px] font-medium tracking-wide">Categorías</span>
+        </a>
+
+        <!-- Pedidos (decorativo) -->
+        <a
+            class="group flex flex-1 flex-col items-center justify-center gap-1 py-1 text-gray-400 hover:text-primary transition-colors cursor-pointer">
+            <div class="relative">
+                <span
+                    class="material-symbols-outlined text-[24px] group-hover:scale-110 transition-transform">shopping_bag</span>
+                <span
+                    class="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[9px] font-bold text-white ring-2 ring-white">3</span>
+            </div>
+            <span class="text-[10px] font-medium tracking-wide">Pedidos</span>
+        </a>
+
+        <!-- Config (decorativo) -->
+        <a
+            class="group flex flex-1 flex-col items-center justify-center gap-1 py-1 text-gray-400 hover:text-primary transition-colors cursor-pointer">
+            <span
+                class="material-symbols-outlined text-[24px] group-hover:scale-110 transition-transform">settings</span>
+            <span class="text-[10px] font-medium tracking-wide">Config</span>
+        </a>
+    </div>
+</nav>

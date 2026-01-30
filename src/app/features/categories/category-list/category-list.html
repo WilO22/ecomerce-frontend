@@ -1,0 +1,76 @@
+<!-- FAB Button Mobile -->
+<button (click)="openCreateModal()"
+    class="fixed bottom-[96px] right-4 lg:hidden z-30 flex h-14 w-14 items-center justify-center rounded-full bg-primary shadow-lg shadow-primary/30 text-white hover:bg-primary/90 active:scale-95 transition-all">
+    <span class="material-symbols-outlined text-[32px]">add</span>
+</button>
+
+<!-- Loading State -->
+@if (isLoading()) {
+<div class="flex items-center justify-center py-12">
+    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+</div>
+} @else {
+<!-- Desktop Action Bar -->
+<div class="hidden lg:flex justify-end mb-4">
+    <button (click)="openCreateModal()"
+        class="flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg hover:bg-primary/90 shadow-sm transition-all font-medium">
+        <span class="material-symbols-outlined text-[20px]">add</span>
+        Nueva Categoría
+    </button>
+</div>
+
+<!-- Categories Table -->
+<div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+    <table class="w-full text-left border-collapse">
+        <thead>
+            <tr
+                class="border-b border-gray-200 bg-gray-50/50 text-xs uppercase text-gray-500 font-semibold tracking-wider">
+                <th class="p-4">Nombre</th>
+                <th class="p-4 hidden md:table-cell">Descripción</th>
+                <th class="p-4 text-right">Acciones</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100 text-sm">
+            @for (category of categories(); track category.id) {
+            <tr class="hover:bg-gray-50 transition-colors">
+                <td class="p-4 font-medium">
+                    <span
+                        class="inline-flex items-center rounded-md bg-purple-50 px-2 py-0.5 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10">
+                        {{ category.name }}
+                    </span>
+                </td>
+                <td class="p-4 text-gray-500 hidden md:table-cell">{{ category.description || 'Sin descripción' }}</td>
+                <td class="p-4 text-right">
+                    <button (click)="openEditModal(category)"
+                        class="text-gray-400 hover:text-primary transition-colors p-1">
+                        <span class="material-symbols-outlined text-[20px]">edit</span>
+                    </button>
+                    <button (click)="openDeleteDialog(category)"
+                        class="text-gray-400 hover:text-red-500 transition-colors p-1 ml-2">
+                        <span class="material-symbols-outlined text-[20px]">delete</span>
+                    </button>
+                </td>
+            </tr>
+            } @empty {
+            <tr>
+                <td colspan="3" class="p-8 text-center text-gray-500">
+                    <span class="material-symbols-outlined text-5xl mb-2">category</span>
+                    <p>No hay categorías registradas</p>
+                    <button (click)="openCreateModal()" class="mt-4 text-primary font-medium hover:underline">Crear
+                        primera categoría</button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+}
+
+<!-- Category Form Modal -->
+<app-category-form-modal [isOpen]="isModalOpen()" [category]="selectedCategory()" (save)="onSaveCategory($event)"
+    (close)="closeModal()" />
+
+<!-- Delete Confirmation Dialog -->
+<app-confirm-dialog [isOpen]="isDeleteDialogOpen()" [title]="'¿Eliminar categoría?'"
+    [message]="'La categoría será eliminada permanentemente. Los productos asociados quedarán sin categoría.'"
+    (confirm)="confirmDelete()" (cancel)="closeDeleteDialog()" />

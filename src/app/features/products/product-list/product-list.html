@@ -14,50 +14,65 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:hidden gap-3">
     @for (product of products(); track product.id) {
     <div
-        class="group relative flex bg-white rounded-lg shadow-soft border border-gray-100/50 p-3 gap-3 transition-transform active:scale-[0.99]">
-        <div
-            class="shrink-0 h-[88px] w-[88px] rounded-lg bg-gray-100 flex items-center justify-center border border-gray-100">
-            <span class="material-symbols-outlined text-4xl text-gray-300">inventory_2</span>
-        </div>
-        <div class="flex flex-1 flex-col justify-between py-0.5">
-            <div>
-                <div class="flex justify-between items-start">
-                    <h3 class="text-[#111816] text-base font-semibold leading-tight line-clamp-1 pr-4">{{ product.name
-                        }}</h3>
-                    <div class="relative">
-                        <button class="text-gray-400 hover:text-[#111816] -mt-1 -mr-1 p-1"
-                            (click)="openEditModal(product)">
-                            <span class="material-symbols-outlined text-[20px]">edit</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="mt-1 flex items-center gap-2">
-                    <span
-                        class="inline-flex items-center rounded-md bg-purple-50 px-2 py-0.5 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10">
-                        {{ getCategoryName(product) }}
-                    </span>
-                </div>
+        class="flex flex-col bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden relative active:scale-[0.99] transition-transform">
+        <!-- Contenido Principal -->
+        <div class="p-4 flex flex-col gap-2">
+            <div class="flex justify-between items-start">
+                <h3 class="text-[#111816] text-base font-semibold leading-tight line-clamp-2 pr-8">{{ product.name }}
+                </h3>
+                <!-- Botón eliminar (Absolute top-right para acceso rápido) -->
+                <button (click)="openDeleteDialog(product); $event.stopPropagation()"
+                    class="absolute top-2 right-2 p-2 text-gray-400 hover:text-red-500 active:bg-red-50 rounded-full transition-colors z-10">
+                    <span class="material-symbols-outlined text-[20px]">delete</span>
+                </button>
             </div>
-            <div class="flex items-end justify-between">
-                <p class="text-primary text-base font-bold leading-normal">${{ product.price }}</p>
+
+            <div class="flex items-center gap-2 mt-1">
+                <span
+                    class="inline-flex items-center rounded-md bg-purple-50 px-2.5 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10">
+                    {{ getCategoryName(product) }}
+                </span>
+            </div>
+
+            <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-50">
+                <div class="flex items-baseline gap-1">
+                    <span class="text-xs text-gray-500 font-medium uppercase">Precio</span>
+                    <span class="text-primary text-lg font-bold">${{ product.price }}</span>
+                </div>
+
                 @if (product.stock > 0) {
-                <p class="text-gray-500 text-xs font-medium leading-normal">{{ product.stock }} en stock</p>
+                <div
+                    class="flex items-center gap-1.5 text-xs font-medium text-gray-600 bg-gray-50 px-2 py-1 rounded-full">
+                    <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                    {{ product.stock }} unid.
+                </div>
                 } @else {
-                <p class="text-red-500 text-xs font-medium leading-normal bg-red-50 px-1.5 py-0.5 rounded">Sin Stock</p>
+                <div
+                    class="flex items-center gap-1.5 text-xs font-medium text-red-600 bg-red-50 px-2 py-1 rounded-full">
+                    <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                    Agotado
+                </div>
                 }
             </div>
         </div>
-        <button (click)="openDeleteDialog(product)"
-            class="absolute top-2 right-2 text-gray-300 hover:text-red-500 transition-colors">
-            <span class="material-symbols-outlined text-[18px]">delete</span>
+
+        <!-- Botón Editar (Full width bottom action) -->
+        <button (click)="openEditModal(product); $event.stopPropagation()"
+            class="flex items-center justify-center gap-2 w-full py-3 bg-gray-50 text-gray-600 text-sm font-medium border-t border-gray-100 active:bg-gray-100 transition-colors">
+            <span class="material-symbols-outlined text-[18px]">edit</span>
+            Editar Producto
         </button>
     </div>
     } @empty {
-    <div class="col-span-2 text-center py-12 text-gray-500">
-        <span class="material-symbols-outlined text-5xl mb-2">inventory_2</span>
-        <p>No hay productos registrados</p>
-        <button (click)="openCreateModal()" class="mt-4 text-primary font-medium hover:underline">Crear primer
-            producto</button>
+    <div class="col-span-1 md:col-span-2 flex flex-col items-center justify-center py-16 text-center">
+        <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
+            <span class="material-symbols-outlined text-3xl text-gray-400">inventory_2</span>
+        </div>
+        <h3 class="text-gray-900 font-medium mb-1">No hay productos</h3>
+        <p class="text-gray-500 text-sm mb-6 max-w-[200px]">Comienza agregando tu primer producto al inventario</p>
+        <button (click)="openCreateModal()" class="text-primary font-semibold text-sm hover:underline">
+            + Crear producto
+        </button>
     </div>
     }
 </div>

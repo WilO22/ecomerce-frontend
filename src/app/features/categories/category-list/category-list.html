@@ -19,27 +19,63 @@
     </button>
 </div>
 
-<!-- Categories Table -->
-<div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+<!-- Cards Grid (Mobile/Tablet) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:hidden gap-3">
+    @for (category of categories(); track category.id) {
+    <div
+        class="flex flex-col bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden relative active:scale-[0.99] transition-transform">
+        <div class="p-4 flex flex-col gap-2">
+            <div class="flex justify-between items-start">
+                <div class="flex flex-col gap-1 pr-8">
+                    <h3 class="text-[#111816] text-base font-semibold leading-tight line-clamp-1">{{ category.name }}
+                    </h3>
+                    <p class="text-xs text-gray-500 line-clamp-2">{{ category.description || 'Sin descripción' }}</p>
+                </div>
+                <!-- Botón eliminar -->
+                <button (click)="openDeleteDialog(category); $event.stopPropagation()"
+                    class="absolute top-2 right-2 p-2 text-gray-400 hover:text-red-500 active:bg-red-50 rounded-full transition-colors z-10">
+                    <span class="material-symbols-outlined text-[20px]">delete</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Botón Editar -->
+        <button (click)="openEditModal(category); $event.stopPropagation()"
+            class="flex items-center justify-center gap-2 w-full py-3 bg-gray-50 text-gray-600 text-sm font-medium border-t border-gray-100 active:bg-gray-100 transition-colors">
+            <span class="material-symbols-outlined text-[18px]">edit</span>
+            Editar Categoría
+        </button>
+    </div>
+    } @empty {
+    <div class="col-span-1 md:col-span-2 flex flex-col items-center justify-center py-16 text-center">
+        <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
+            <span class="material-symbols-outlined text-3xl text-gray-400">category</span>
+        </div>
+        <h3 class="text-gray-900 font-medium mb-1">No hay categorías</h3>
+        <p class="text-gray-500 text-sm mb-6 max-w-[200px]">Comienza agregando tu primera categoría</p>
+        <button (click)="openCreateModal()" class="text-primary font-semibold text-sm hover:underline">
+            + Crear categoría
+        </button>
+    </div>
+    }
+</div>
+
+<!-- Table View (Desktop Only) -->
+<div class="hidden lg:block bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
     <table class="w-full text-left border-collapse">
         <thead>
             <tr
                 class="border-b border-gray-200 bg-gray-50/50 text-xs uppercase text-gray-500 font-semibold tracking-wider">
                 <th class="p-4">Nombre</th>
-                <th class="p-4 hidden md:table-cell">Descripción</th>
+                <th class="p-4">Descripción</th>
                 <th class="p-4 text-right">Acciones</th>
             </tr>
         </thead>
         <tbody class="divide-y divide-gray-100 text-sm">
             @for (category of categories(); track category.id) {
-            <tr class="hover:bg-gray-50 transition-colors">
-                <td class="p-4 font-medium">
-                    <span
-                        class="inline-flex items-center rounded-md bg-purple-50 px-2 py-0.5 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10">
-                        {{ category.name }}
-                    </span>
-                </td>
-                <td class="p-4 text-gray-500 hidden md:table-cell">{{ category.description || 'Sin descripción' }}</td>
+            <tr class="hover:bg-gray-50 transition-colors group">
+                <td class="p-4 font-medium text-gray-900">{{ category.name }}</td>
+                <td class="p-4 text-gray-500">{{ category.description || 'Sin descripción' }}</td>
                 <td class="p-4 text-right">
                     <button (click)="openEditModal(category)"
                         class="text-gray-400 hover:text-primary transition-colors p-1">
